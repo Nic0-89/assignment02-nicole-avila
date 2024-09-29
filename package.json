@@ -6,7 +6,7 @@
   "scripts": {
     "serve": "npx json-server db.json",
     "ui-mode": "npx playwright test --ui",
-     "test": "npx playwright test"
+    "test": "npx playwright test"
   },
   "keywords": [],
   "author": "",
