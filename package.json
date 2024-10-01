@@ -1,12 +1,15 @@
 {
-  "name": "playwright-apirequestcontext",
+  "name": "hotel-test",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "serve": "npx json-server db.json",
     "ui-mode": "npx playwright test --ui",
-    "test": "npx playwright test"
+    "test": "npx playwright test",
+    "start": "node app.js"
+
+    
   },
   "keywords": [],
   "author": "",
