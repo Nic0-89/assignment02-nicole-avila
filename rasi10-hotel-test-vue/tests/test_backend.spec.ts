@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test';
 //import { faker } from '@faker-js/faker';
 //import { title } from 'process';
 
+//comment
+
 test.describe('Test suite backend', () => {
   let token = '';
 
@@ -32,24 +34,24 @@ test.describe('Test suite backend', () => {
     const roomResponse = await request.get('http://localhost:3000/api/rooms', {
       headers: {
         "X-user-auth": JSON.stringify({
-            username: 'tester01', 
-            token: token,
+          username: 'tester01',
+          token: token,
         }),
-    }, 
-}); 
+      },
+    });
 
-expect(roomResponse.status()).toBe(200); 
+    expect(roomResponse.status()).toBe(200);
 
-});
+  });
 
 
 
-test('Test case 03 - Get all clients', async ({ request }) => {
-  // has the token been saved?
-  expect(token).toBeTruthy(); // to check if token is set
+  test('Test case 03 - Get all clients', async ({ request }) => {
+    // has the token been saved?
+    expect(token).toBeTruthy(); // to check if token is set
 
-  const clientResponse = await request.get('http://localhost:3000/api/clients', {
-  
+    const clientResponse = await request.get('http://localhost:3000/api/clients', {
+
       headers: {
         "X-user-auth": JSON.stringify({
           username: 'tester01', // You may want to use the username from the login response
@@ -58,91 +60,91 @@ test('Test case 03 - Get all clients', async ({ request }) => {
       },
     });
     expect(clientResponse.ok()).toBeTruthy();
-  expect(clientResponse.status()).toBe(200);
-  const responseBody = JSON.parse(await clientResponse.text());
-  expect(responseBody).toHaveProperty('name');
+    expect(clientResponse.status()).toBe(200);
+    const responseBody = JSON.parse(await clientResponse.text());
+    expect(responseBody).toHaveProperty('name');
 
-});
-
-test('Test case 02 - Get all posts', async ({ request }) => {
-
-  var getPostsResponse = await request.get('http://localhost:3000/posts');
-  expect(getPostsResponse.ok()).toBeTruthy();
-
-});
-
-
-//       3. Create a New Room (POST)
-// Description: Test the functionality of creating a new room with valid data.
-// Send a POST request to create a room with valid data 
-// Verify the status code is 201 Created.
-test('Test case 03 - Create room with POST', async ({ request }) => {
-
-  var getPostsResponse = await request.post('http://localhost:3000/api/room/new', {
-    headers: {
-      'X-user-auth': JSON.stringify({
-        username: 'tester01',
-        token: token
-      }),
-      'Content-Type': 'application/json'
-    },
-    data: {
-      features: ['balcony'],
-      category: 'single',
-      number: '4',
-      floor: '5',
-      available: true,
-      price: 2000
-    }
   });
-  expect(getPostsResponse.status()).toBe(201);
-  const room = await getPostsResponse.json();
-  expect(room).toHaveProperty('floor');
-});
 
-test('Test case 04 - Get all rooms', async ({ request }) => {
+  test('Test case 02 - Get all posts', async ({ request }) => {
 
-  var getRoomsResponse = await request.get('http://localhost:3000/api/rooms', {
-    headers: {
-      'X-user-auth': JSON.stringify({
-        username: 'tester01',
-        token: token
-      }),
-      'Content-Type': 'application/json'
-    },
+    var getPostsResponse = await request.get('http://localhost:3000/posts');
+    expect(getPostsResponse.ok()).toBeTruthy();
+
   });
-  expect(getRoomsResponse.status()).toBe(200);
-  const rooms = await getRoomsResponse.json();
-  expect(rooms).toBeTruthy;
-});
 
-// 2. Create a New Client (POST)
-// Send a POST request to add a new client with valid data (e.g., name, email, phone number).
-// Verify that the status code is 201 Created.
 
-test('Test case 05 - Create Client with POST', async ({ request }) => {
-  const newClient = {
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phone: "123-456-7890",
-    address: "123 Elm Street",
-  };
+  //       3. Create a New Room (POST)
+  // Description: Test the functionality of creating a new room with valid data.
+  // Send a POST request to create a room with valid data 
+  // Verify the status code is 201 Created.
+  test('Test case 03 - Create room with POST', async ({ request }) => {
 
-  var getclientResponse = await request.post('http://localhost:3000/api/client/new', {
-    headers: {
-      'X-user-auth': JSON.stringify({
-        username: 'tester01',
-        token: token
-      }),
-      'Content-Type': 'application/json'
-    },
-    data: JSON.stringify(newClient),
+    var getPostsResponse = await request.post('http://localhost:3000/api/room/new', {
+      headers: {
+        'X-user-auth': JSON.stringify({
+          username: 'tester01',
+          token: token
+        }),
+        'Content-Type': 'application/json'
+      },
+      data: {
+        features: ['balcony'],
+        category: 'single',
+        number: '4',
+        floor: '5',
+        available: true,
+        price: 2000
+      }
+    });
+    expect(getPostsResponse.status()).toBe(201);
+    const room = await getPostsResponse.json();
+    expect(room).toHaveProperty('floor');
   });
-  expect(getclientResponse.status).toBe(201);
-  let getclient = await getclientResponse.json()
-  expect(getclient).toHaveProperty('name');
 
-});
+  test('Test case 04 - Get all rooms', async ({ request }) => {
+
+    var getRoomsResponse = await request.get('http://localhost:3000/api/rooms', {
+      headers: {
+        'X-user-auth': JSON.stringify({
+          username: 'tester01',
+          token: token
+        }),
+        'Content-Type': 'application/json'
+      },
+    });
+    expect(getRoomsResponse.status()).toBe(200);
+    const rooms = await getRoomsResponse.json();
+    expect(rooms).toBeTruthy;
+  });
+
+  // 2. Create a New Client (POST)
+  // Send a POST request to add a new client with valid data (e.g., name, email, phone number).
+  // Verify that the status code is 201 Created.
+
+  test('Test case 05 - Create Client with POST', async ({ request }) => {
+    const newClient = {
+      name: "John Doe",
+      email: "john.doe@example.com",
+      phone: "123-456-7890",
+      address: "123 Elm Street",
+    };
+
+    var getclientResponse = await request.post('http://localhost:3000/api/client/new', {
+      headers: {
+        'X-user-auth': JSON.stringify({
+          username: 'tester01',
+          token: token
+        }),
+        'Content-Type': 'application/json'
+      },
+      data: JSON.stringify(newClient),
+    });
+    expect(getclientResponse.status).toBe(201);
+    let getclient = await getclientResponse.json()
+    expect(getclient).toHaveProperty('name');
+
+  });
 });
 
 
